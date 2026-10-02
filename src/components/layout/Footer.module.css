@@ -1,0 +1,23 @@
+.footer { margin-top: auto; background: #171d1a; color: #f2f3ef; }
+.top { display: grid; grid-template-columns: 1.35fr repeat(3, .72fr) 1.35fr; gap: var(--space-6); padding-block: var(--space-7); }
+.logo { color: #f2f3ef; font-size: 1.6rem; font-weight: 750; letter-spacing: -.08em; text-decoration: none; }
+.logo span { color: #9abda2; }
+.brandBlock > p, .newsletter > p:not(.newsletterEyebrow) { margin-top: var(--space-3); color: #bcc3bd; font-size: var(--text-sm); line-height: 1.6; }
+.socials { display: flex; gap: var(--space-2); margin-top: var(--space-4); }
+.socials a { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #46504a; color: #f2f3ef; }
+.socials a:hover { background: #29342e; }
+.group h2, .newsletter h2 { font-size: var(--text-sm); font-weight: var(--weight-semibold); letter-spacing: .01em; }
+.group ul { display: grid; gap: var(--space-3); margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+.group a { color: #bcc3bd; font-size: var(--text-sm); text-decoration: none; }
+.group a:hover { color: white; text-decoration: underline; text-underline-offset: 3px; }
+.newsletterEyebrow { margin-bottom: var(--space-2); color: #a9c1ad; font-size: 10px; letter-spacing: .12em; }
+.newsletter form { display: flex; height: 44px; margin-top: var(--space-4); border-bottom: 1px solid #7f8981; }
+.newsletter input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: #fff; font-size: var(--text-sm); }
+.newsletter input::placeholder { color: #aeb6af; }
+.newsletter button { width: 42px; display: grid; place-items: center; border: 0; background: transparent; color: #fff; }
+.newsletter button:hover { color: #a9c1ad; }
+.finePrint { display: block; margin-top: var(--space-2); color: #aeb6af; font-size: 10px; }
+.success { margin-top: var(--space-4) !important; color: #c4ddc9 !important; font-size: var(--text-sm) !important; }
+.bottom { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); border-top: 1px solid #39423c; color: #aeb6af; font-size: var(--text-xs); }
+@media (max-width: 900px) { .top { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }.brandBlock { grid-column: span 2; }.newsletter { grid-column: span 2; } }
+@media (max-width: 540px) { .top { grid-template-columns: repeat(2, 1fr); gap: var(--space-5) var(--space-4); }.brandBlock { grid-column: span 2; }.newsletter { grid-column: span 2; }.bottom { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: var(--space-3); } }
