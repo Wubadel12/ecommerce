@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useParams, useSearchParams, Link } from 'react-router-dom'
-import { ArrowDownUp, ArrowRight, Check, Heart, LayoutGrid, List, Search, SlidersHorizontal, Star, X } from 'lucide-react'
+import { ArrowDownUp, ArrowRight, Check, Eye, Heart, LayoutGrid, List, Search, ShoppingBag, SlidersHorizontal, Star, X } from 'lucide-react'
 import { categories } from '../../data/categories'
 import { useProducts } from '../../hooks/useProducts'
+import { useCart } from '../../hooks/useCart'
 import { formatCurrency } from '../../utils/formatters'
 import { readStorage, STORAGE_KEYS, writeStorage } from '../../utils/storage'
 import { useWishlist } from '../../hooks/useWishlist'
@@ -16,7 +17,33 @@ const SORTS = [
 
 function ProductCard({ product, listView }) {
   const { isWishlisted, toggleWishlist } = useWishlist()
+  const { addToCart } = useCart()
+  const [quickViewOpen, setQuickViewOpen] = useState(false)
+  const quickViewTrigger = useRef(null)
   const wishlisted = isWishlisted(product.id)
+
+  function closeQuickView() {
+    setQuickViewOpen(false)
+    window.requestAnimationFrame(() => quickViewTrigger.current?.focus())
+  }
+
+  function handleQuickViewKeys(event) {
+    if (event.key === 'Escape') {
+      setQuickViewOpen(false)
+      return
+    }
+    if (event.key !== 'Tab') return
+    const focusable = [...event.currentTarget.querySelectorAll('button:not(:disabled), a[href]')]
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last?.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first?.focus()
+    }
+  }
 
   return (
     <article className={`${styles.productCard} ${listView ? styles.listCard : ''}`}>
@@ -24,6 +51,10 @@ function ProductCard({ product, listView }) {
         {product.discount > 0 && <span className={styles.saleBadge}>Save {product.discount}%</span>}
         <img src={product.images[0]} alt={product.name} loading="lazy" />
       </Link>
+      <div className={styles.cardActions}>
+        <button type="button" onClick={(event) => { quickViewTrigger.current = event.currentTarget; setQuickViewOpen(true) }}><Eye size={15} /> Quick view</button>
+        <button type="button" disabled={product.stock === 0} onClick={() => addToCart(product)}><ShoppingBag size={15} /> Add to bag</button>
+      </div>
       <button type="button" className={`${styles.wishlistButton} ${wishlisted ? styles.wishlisted : ''}`} aria-label={wishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`} aria-pressed={wishlisted} onClick={() => toggleWishlist(product.id)}><Heart size={18} fill={wishlisted ? 'currentColor' : 'none'} /></button>
       <div className={styles.productInfo}>
         <p className={styles.brand}>{product.brand} <span>{categories.find((category) => category.slug === product.category)?.name ?? product.category}</span></p>
@@ -32,6 +63,7 @@ function ProductCard({ product, listView }) {
         <div className={styles.rating}><Star size={14} fill="currentColor" aria-hidden="true" /><strong>{product.rating}</strong><span>({product.reviewCount} reviews)</span></div>
         <div className={styles.priceRow}><strong>{formatCurrency(product.price)}</strong>{product.oldPrice && <del>{formatCurrency(product.oldPrice)}</del>}<span className={product.stock > 0 ? styles.inStock : styles.outOfStock}>{product.stock > 0 ? 'In stock' : 'Out of stock'}</span></div>
       </div>
+      {quickViewOpen && <div className={styles.quickViewBackdrop} role="presentation" onClick={closeQuickView}><section className={styles.quickView} role="dialog" aria-modal="true" aria-labelledby={`quick-view-title-${product.id}`} onClick={(event) => event.stopPropagation()} onKeyDown={handleQuickViewKeys}><button className={styles.quickViewClose} type="button" autoFocus onClick={closeQuickView} aria-label="Close quick view"><X size={20} /></button><img src={product.images[0]} alt={product.name} /><div><p className={styles.brand}>{product.brand} <span>{categories.find((category) => category.slug === product.category)?.name ?? product.category}</span></p><h2 id={`quick-view-title-${product.id}`}>{product.name}</h2><p>{product.shortDescription}</p><p className={styles.quickViewPrice}>{formatCurrency(product.price)} {product.oldPrice && <del>{formatCurrency(product.oldPrice)}</del>}</p><div className={styles.quickViewButtons}><button type="button" className="btn btn--primary" disabled={product.stock === 0} onClick={() => { addToCart(product); closeQuickView() }}><ShoppingBag size={16} /> Add to bag</button><Link to={`/product/${product.slug}`} className="btn btn--secondary">View details</Link></div></div></section></div>}
     </article>
   )
 }

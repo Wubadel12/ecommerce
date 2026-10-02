@@ -2,10 +2,11 @@
 // before real product photos are added. Safe to re-run.
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { products } from '../src/data/products.js'
 import { categories } from '../src/data/categories.js'
 
-const PUBLIC_DIR = new URL('../public/images/', import.meta.url).pathname
+const PUBLIC_DIR = fileURLToPath(new URL('../public/images/', import.meta.url))
 const BACKGROUNDS = ['#eef0f3', '#e8ecf3', '#f0eeea']
 
 const escapeXml = (text) =>

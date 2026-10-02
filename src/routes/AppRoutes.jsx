@@ -19,6 +19,7 @@ const Login = lazy(() => import('../pages/Login'))
 const Register = lazy(() => import('../pages/Register'))
 const ForgotPassword = lazy(() => import('../pages/ForgotPassword'))
 const NotFound = lazy(() => import('../pages/NotFound'))
+const StoreInfo = lazy(() => import('../pages/StoreInfo'))
 
 const AccountProfile = lazy(() => import('../pages/account/AccountProfile'))
 const AccountDashboard = lazy(() => import('../pages/account/AccountDashboard'))
@@ -43,6 +44,9 @@ export default function AppRoutes() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="privacy" element={<StoreInfo type="privacy" />} />
+        <Route path="terms" element={<StoreInfo type="terms" />} />
+        <Route path="404" element={<NotFound />} />
         <Route path="order-success/:orderId" element={<OrderSuccess />} />
 
         <Route path="account" element={<AccountLayout />}>

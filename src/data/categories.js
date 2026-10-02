@@ -47,4 +47,16 @@ export const categories = [
     description: 'Mirrorless, compact and action cameras.',
     image: '/images/categories/cameras.svg',
   },
+  {
+    slug: 'tablets',
+    name: 'Tablets',
+    description: 'Portable screens for reading, creating and getting things done.',
+    image: '/images/categories/tablets.svg',
+  },
+  {
+    slug: 'smart-home',
+    name: 'Smart Home',
+    description: 'Thoughtful devices for a more comfortable, connected home.',
+    image: '/images/categories/smart-home.svg',
+  },
 ]

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { categories } from '../data/categories'
 import { products } from '../data/products'
 import { formatCurrency } from '../utils/formatters'
+import { readStorage, STORAGE_KEYS } from '../utils/storage'
 import { useWishlist } from '../hooks/useWishlist'
 import styles from './Home.module.css'
 
@@ -44,6 +45,10 @@ function ProductTile({ product }) {
 
 export default function Home() {
   const [newsletterDone, setNewsletterDone] = useState(false)
+  const recentlyViewed = readStorage(STORAGE_KEYS.recentlyViewed, [], Array.isArray)
+    .map((id) => products.find((product) => product.id === id))
+    .filter(Boolean)
+    .slice(0, 4)
   const heroProduct = featuredProducts[0] ?? products[0]
   return (
     <div className={styles.page}>
@@ -82,6 +87,7 @@ export default function Home() {
 
       <ProductSection eyebrow="JUST ARRIVED" title="New to NOVA" items={newArrivals.length ? newArrivals : featuredProducts} linkLabel="See new arrivals" />
       <ProductSection eyebrow="A GOOD PLACE TO START" title="Well loved by customers" items={recommendedProducts} linkLabel="Explore the collection" />
+      {recentlyViewed.length > 0 && <ProductSection eyebrow="PICK UP WHERE YOU LEFT OFF" title="Recently viewed" items={recentlyViewed} linkLabel="Browse the full collection" />}
 
       <section className={`container ${styles.reviews}`} aria-labelledby="reviews-title">
         <div className={styles.sectionHead}><div><p className={styles.eyebrow}>A NOTE FROM OUR CUSTOMERS</p><h2 id="reviews-title">Good things, said simply.</h2></div><span className={styles.reviewSummary}><Star size={15} fill="currentColor" /> 4.8 out of 5</span></div>
@@ -93,7 +99,7 @@ export default function Home() {
         <div className={`container ${styles.newsletter}`}><div><p className={styles.eyebrow}>A GOOD EMAIL, OCCASIONALLY</p><h2>Notes from NOVA</h2><p>New finds, useful ideas and first access to selected offers.</p></div>{newsletterDone ? <p className={styles.newsletterSuccess} role="status">Thanks for your interest. This newsletter is a demo and your email was not sent or saved.</p> : <form onSubmit={(event) => { event.preventDefault(); setNewsletterDone(true) }}><label className="visually-hidden" htmlFor="home-newsletter">Email address</label><input id="home-newsletter" type="email" className="field-input" placeholder="Your email address" autoComplete="email" required /><button className="btn btn--primary" type="submit">Sign me up <ArrowRight size={16} /></button></form>}</div>
       </section>
 
-      <section className={`container ${styles.promise}`}><div><span className={styles.promiseNumber}>01</span><h3>Chosen with care</h3><p>Useful, well-made tech from brands we believe in.</p></div><div><span className={styles.promiseNumber}>02</span><h3>Here when you need us</h3><p>Real people ready to help you choose well.</p></div><div><span className={styles.promiseNumber}>03</span><h3>Easy by design</h3><p>Free delivery over $100 and simple returns.</p></div></section>
+      <section className={`container ${styles.promise}`}><div><span className={styles.promiseNumber}>01</span><h3>Chosen with care</h3><p>Useful, well-made tech from brands we believe in.</p></div><div><span className={styles.promiseNumber}>02</span><h3>Helpful details</h3><p>Clear product information to help you choose well.</p></div><div><span className={styles.promiseNumber}>03</span><h3>Easy by design</h3><p>Free delivery over $100 and simple returns.</p></div></section>
     </div>
   )
 }

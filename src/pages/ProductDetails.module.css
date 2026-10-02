@@ -39,7 +39,7 @@
 .colorChoices .selectedColor { outline: 2px solid var(--color-text); outline-offset: 2px; }
 .sizeChoices button { min-width: 42px; min-height: 38px; padding-inline: var(--space-2); border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text); font-size: var(--text-sm); }
 .sizeChoices .selectedSize { border-color: var(--color-text); box-shadow: inset 0 0 0 1px var(--color-text); }
-.purchaseRow { display: grid; grid-template-columns: 112px minmax(0, 1fr) 48px; gap: var(--space-2); margin-top: var(--space-6); }
+.purchaseRow { display: grid; grid-template-columns: 92px repeat(2, minmax(0, 1fr)) 48px; gap: var(--space-2); margin-top: var(--space-6); }
 .purchaseRow :global(.btn) { gap: var(--space-2); }
 .purchaseRow :global(.btn:disabled) { opacity: .55; }
 .wishlistButton { width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--color-border-strong); background: var(--color-bg); color: var(--color-text); }
@@ -70,6 +70,24 @@
 .reviewSummary strong { font-size: var(--text-lg); }
 .reviewSummary span:last-child, .reviews > p:last-child { color: var(--color-text-muted); font-size: var(--text-sm); }
 .reviews > p:last-child { margin-top: var(--space-3); }
+.reviewForm { max-width: 680px; margin-top: var(--space-5); padding: var(--space-4); border: 1px solid var(--color-border); background: var(--color-surface); }
+.reviewForm h3 { font-size: var(--text-lg); }
+.reviewForm > p { margin-top: var(--space-1); color: var(--color-text-muted); font-size: var(--text-sm); }
+.reviewFields { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-block: var(--space-4); }
+.reviewFields label { display: grid; gap: var(--space-1); color: var(--color-text); font-size: var(--text-sm); font-weight: var(--weight-medium); }
+.reviewFields label:last-child { grid-column: 1 / -1; }
+.reviewFields input, .reviewFields select, .reviewFields textarea { width: 100%; min-height: 42px; padding: var(--space-2); border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); background: var(--color-bg); color: var(--color-text); font: inherit; font-weight: var(--weight-regular); }
+.reviewFields textarea { resize: vertical; }
+.reviewForm :global(.btn) { gap: var(--space-2); }
+.reviewNotice, .reviewDisclaimer { margin-top: var(--space-3); color: var(--color-text-muted); font-size: var(--text-xs); }
+.reviewList { display: grid; gap: var(--space-3); max-width: 800px; margin-top: var(--space-5); }
+.reviewCard { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.reviewCard > div { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.reviewStars { color: var(--color-star); letter-spacing: .08em; }
+.reviewCard time, .reviewCard small { color: var(--color-text-muted); font-size: var(--text-xs); }
+.reviewCard h3 { margin-top: var(--space-2); font-size: var(--text-base); }
+.reviewCard > p { margin-top: var(--space-1); color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.6; white-space: pre-line; }
+.reviewCard small { display: block; margin-top: var(--space-2); }
 .recommendations { padding-block: var(--space-6); }
 .sectionHead { display: flex; align-items: end; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-4); }
 .sectionHead a { display: inline-flex; align-items: center; gap: 2px; color: var(--color-text); font-size: var(--text-sm); text-decoration: none; }
@@ -87,5 +105,5 @@
 .notFound h1 { max-width: 20ch; font-size: var(--text-2xl); }
 .notFound p:not(.eyebrow) { color: var(--color-text-muted); }
 .notFound :global(.btn) { display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
-@media (max-width: 850px) { .productLayout { grid-template-columns: 1fr 1fr; gap: var(--space-5); }.mainImage { min-height: 340px; }.mainImage img { height: 310px; }.purchaseRow { grid-template-columns: 100px minmax(0, 1fr) 44px; }.wishlistButton { width: 44px; height: 48px; }.serviceNotes { margin-top: var(--space-4); }.miniGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.miniProduct > div { height: clamp(160px, 30vw, 220px); } }
-@media (max-width: 620px) { .breadcrumbs { min-height: 46px; }.productLayout { grid-template-columns: 1fr; padding-top: var(--space-2); }.mainImage { min-height: 320px; }.mainImage img { height: 285px; }.details { padding-top: var(--space-3); }.information { grid-template-columns: 1fr; gap: var(--space-5); }.reviewSummary { align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); }.sectionHead { align-items: flex-start; flex-direction: column; }.miniGrid { gap: var(--space-4) var(--space-3); }.miniProduct > div { height: 42vw; max-height: 210px; min-height: 145px; } }
+@media (max-width: 850px) { .productLayout { grid-template-columns: 1fr 1fr; gap: var(--space-5); }.mainImage { min-height: 340px; }.mainImage img { height: 310px; }.purchaseRow { grid-template-columns: 80px repeat(2, minmax(0, 1fr)) 44px; }.wishlistButton { width: 44px; height: 48px; }.serviceNotes { margin-top: var(--space-4); }.miniGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.miniProduct > div { height: clamp(160px, 30vw, 220px); } }
+@media (max-width: 620px) { .breadcrumbs { min-height: 46px; }.productLayout { grid-template-columns: 1fr; padding-top: var(--space-2); }.mainImage { min-height: 320px; }.mainImage img { height: 285px; }.details { padding-top: var(--space-3); }.purchaseRow { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }.purchaseRow > :first-child { width: 100%; }.purchaseRow > :nth-child(2) { grid-column: 2; }.purchaseRow > :nth-child(3) { grid-column: 1 / span 2; grid-row: 2; }.purchaseRow > :nth-child(4) { grid-column: 3; grid-row: 1 / span 2; height: auto; }.purchaseRow :global(.btn) { padding-inline: var(--space-2); font-size: var(--text-sm); }.information { grid-template-columns: 1fr; gap: var(--space-5); }.reviewSummary { align-items: flex-start; flex-wrap: wrap; gap: var(--space-2); }.reviewFields { grid-template-columns: 1fr; }.reviewFields label:last-child { grid-column: auto; }.reviewForm { padding: var(--space-3); }.sectionHead { align-items: flex-start; flex-direction: column; }.miniGrid { gap: var(--space-4) var(--space-3); }.miniProduct > div { height: 42vw; max-height: 210px; min-height: 145px; } }

@@ -5,7 +5,7 @@ import styles from './Footer.module.css'
 
 const footerGroups = [
   { title: 'Shop', links: [{ label: 'All products', to: '/shop' }, { label: 'New arrivals', to: '/shop' }, { label: 'Offers', to: '/shop' }, { label: 'Categories', to: '/categories' }] },
-  { title: 'Customer care', links: [{ label: 'Your account', to: '/account' }, { label: 'Orders', to: '/account/orders' }, { label: 'Wishlist', to: '/wishlist' }, { label: 'Contact us', href: 'mailto:hello@nova.example' }] },
+  { title: 'Customer care', links: [{ label: 'Your account', to: '/account' }, { label: 'Orders', to: '/account/orders' }, { label: 'Wishlist', to: '/wishlist' }, { label: 'Contact us', href: 'mailto:hello@nova.example' }, { label: 'Privacy', to: '/privacy' }, { label: 'Terms', to: '/terms' }] },
   { title: 'About NOVA', links: [{ label: 'Our approach', to: '/' }, { label: 'Smartphones', to: '/category/smartphones' }, { label: 'Laptops', to: '/category/laptops' }, { label: 'Headphones', to: '/category/headphones' }] },
 ]
 
